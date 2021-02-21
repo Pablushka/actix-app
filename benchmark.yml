@@ -1,0 +1,26 @@
+# cargo install drill
+# drill --benchmark benchmark.yml --stats
+# https://github.com/fcsonline/drill
+
+concurrency: 1000
+base: 'http://localhost:3000' # Use your deployment URL here
+iterations: 1000
+rampup: 2
+
+plan:
+  - name: Retrieve Posted Data
+    request:
+      url: /echo
+      method: POST
+      #body: '{{ item.txn }}'
+      body: '{
+    "name": "sample",
+    "time": "Wed, 21 Oct 2015 18:27:50 GMT",
+    "user": "Pablushka!"
+}'
+      headers:
+        Content-Type: 'application/json'
+
+  - name: Retrieve Simple string
+    request:
+      url: /hey
